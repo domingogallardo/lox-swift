@@ -1,6 +1,7 @@
 .DS_Store
 /.build
 /.vscode
+*.txt
 /Packages
 /*.xcodeproj
 xcuserdata/
