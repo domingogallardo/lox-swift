@@ -42,7 +42,8 @@ struct Lox {
     }
 
     static func run(source: String) {
-        let tokens = source.components(separatedBy: .whitespacesAndNewlines)
+        var scanner = Scanner(source: source)
+        let tokens = scanner.scanTokens()
         for token in tokens {
             print(token)
         }
