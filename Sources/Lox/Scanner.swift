@@ -1,4 +1,4 @@
-struct Scanner {
+class Scanner {
     var source: String
     var tokens: [Token] = []
     var start = 0
@@ -12,7 +12,7 @@ struct Scanner {
         self.source = source
     }
 
-    mutating func scanTokens() -> [Token] {
+    func scanTokens() -> [Token] {
         while (!isAtEnd) {
             start = current
             scanToken()
@@ -21,7 +21,7 @@ struct Scanner {
         return tokens
     }
 
-    mutating func scanToken() {
+    func scanToken() {
         let c = advance()
         switch c {
             case "(": addToken(type: .leftParen)
@@ -38,17 +38,17 @@ struct Scanner {
         }
     }
 
-    mutating func advance() -> Character {
+    func advance() -> Character {
         let index = source.index(source.startIndex, offsetBy: current)
         current += 1
         return source[index]
     }
 
-    mutating func addToken(type: TokenType) {
+    func addToken(type: TokenType) {
         addToken(type: type, literal: nil)
     }
 
-    mutating func addToken(type: TokenType, literal: Any?) {
+    func addToken(type: TokenType, literal: Any?) {
         let start = source.index(source.startIndex, offsetBy: start)
         let end = source.index(source.startIndex, offsetBy: current)
         let text = String(source[start..<end])
