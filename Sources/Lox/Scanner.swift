@@ -34,8 +34,25 @@ class Scanner {
             case "+": addToken(type: .plus)
             case ";": addToken(type: .semicolon)
             case "*": addToken(type: .star)
-            default: break
+            case "!": addToken(type: match("=") ? .bangEqual : .bang)
+            case "=": addToken(type: match("=") ? .equalEqual : .equal)
+            case "<": addToken(type: match("=") ? .lessEqual : .less)
+            case ">": addToken(type: match("=") ? .greaterEqual : .greater)
+            default: 
+                Lox.error(line: line, message: "Unexpected character.")
         }
+    }
+
+    func match(_ expected: Character) -> Bool {
+        if (isAtEnd) {
+            return false
+        }
+        let index = source.index(source.startIndex, offsetBy: current)
+        if (source[index] != expected) {
+            return false
+        }
+        current += 1
+        return true
     }
 
     func advance() -> Character {

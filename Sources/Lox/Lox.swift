@@ -54,7 +54,7 @@ struct Lox {
     }
 
     static func report(line: Int, position: String, message: String) {
-        print("[line \(line)] Error \(position): \(message)")
+        print("[line \(line)] Error\(position): \(message)")
         hadError = true
     }
 }
