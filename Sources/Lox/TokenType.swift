@@ -1,17 +1,17 @@
 enum TokenType {
-    // Single-character tokens
+    // Single-character tokens.
     case leftParen, rightParen, leftBrace, rightBrace
     case comma, dot, minus, plus, semicolon, slash, star
 
-    // One or two character tokens
+    // One or two character tokens.
     case bang, bangEqual, equal, equalEqual
     case greater, greaterEqual, less, lessEqual
 
-    // Literals
+    // Literals.
     case identifier, string, number
 
-    // Keywords
-    case and, tclass, telse, tfalse, fun, tfor, tif, tnil, or
-    case print, treturn, tsuper, this, ttrue, tvar, twhile
+    // Keywords.
+    case and, kclass, kelse, kfalse, fun, kfor, kif, knil, or
+    case print, kreturn, ksuper, this, ktrue, kvar, kwhile
     case eof
 }
