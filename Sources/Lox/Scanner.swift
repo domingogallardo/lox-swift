@@ -103,8 +103,8 @@ class Scanner {
             while (isDigit(peek())) {
                 let _ = advance()
             }
-            addToken(type: .number, literal: Double(source[start..<current]))
         }
+        addToken(type: .number, literal: Double(source[start..<current]))
     }
 
     func string() {
