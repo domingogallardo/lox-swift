@@ -4,7 +4,7 @@ struct Token {
     let literal: Any?
     let line: Int
 
-    init(type: TokenType, lexeme: String, literal: Any?, line: Int) {
+    init(type: TokenType, lexeme: String, literal: Any? = nil, line: Int) {
         self.type = type
         self.lexeme = lexeme
         self.literal = literal

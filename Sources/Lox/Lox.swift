@@ -1,6 +1,6 @@
 import Foundation
 
-@main
+
 struct Lox {
     static var hadError = false
 
@@ -56,5 +56,19 @@ struct Lox {
     static func report(line: Int, position: String, message: String) {
         print("[line \(line)] Error\(position): \(message)")
         hadError = true
+    }
+}
+
+@main
+struct Prueba {
+    static func main() {
+        let expression = 
+        Expr.Binary(
+            left: Expr.Unary(
+                    op: Token(type: TokenType.minus, lexeme: "-", literal: nil, line: 1), 
+                    right: Expr.Literal(value: 123)), 
+            op: Token(type: TokenType.star, lexeme: "*", literal: nil, line: 1), 
+            right: Expr.Grouping(expression: Expr.Literal(value: 45.67)))
+        print(AstPrinter().print(expr: expression))
     }
 }

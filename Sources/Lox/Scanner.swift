@@ -7,7 +7,7 @@ class Scanner {
     var isAtEnd: Bool {
         return current >= source.count
     }
-    let keywords : [String : TokenType] = [
+    static let keywords : [String : TokenType] = [
         "and": .and,
         "class": .kclass,
         "else": .kelse,
@@ -35,7 +35,7 @@ class Scanner {
             start = current
             scanToken()
         }
-        tokens.append(Token(type: .eof, lexeme: "", literal: nil, line: line))
+        tokens.append(Token(type: .eof, lexeme: "", line: line))
         return tokens
     }
 
@@ -68,14 +68,12 @@ class Scanner {
             case " ", "\r", "\t": break // Ignore whitespace.
             case "\n": line += 1
             case "\"": string()
+            case _ where isDigit(c):
+                number()
+            case _ where isAlpha(c):
+                identifier()
             default:
-                if (isDigit(c)) {
-                    number()
-                } else if (isAlpha(c)) {
-                    identifier()
-                } else {
-                    Lox.error(line: line, message: "Unexpected character.")
-                }
+                Lox.error(line: line, message: "Unexpected character.")
         }
     }
 
@@ -84,7 +82,7 @@ class Scanner {
             let _ = advance()
         }
         let text = source[start..<current]
-        if let type = keywords[text] {
+        if let type = Scanner.keywords[text] {
             addToken(type: type)
         } else {
             addToken(type: .identifier)
