@@ -1,4 +1,9 @@
 class Parser {
+
+    enum Error: Swift.Error {
+        case parseFailure
+    }
+
     var tokens: [Token]
     var current = 0
 
@@ -138,9 +143,9 @@ class Parser {
         return tokens[current - 1]
     }
 
-    func error(token: Token, message: String) -> ParsingError {
+    func error(token: Token, message: String) -> Parser.Error {
         Lox.error(token: token, message: message)
-        return ParsingError(token: token, message: message)
+        return Parser.Error.parseFailure
     }
 
     func sychronizye() {
@@ -158,9 +163,4 @@ class Parser {
             let _ = advance()
         }
     }
-}
-
-struct ParsingError: Error {
-    let token: Token
-    let message: String
 }
