@@ -1,6 +1,6 @@
 import Foundation
 
-
+@main
 struct Lox {
     static var hadError = false
 
@@ -44,9 +44,16 @@ struct Lox {
     static func run(source: String) {
         let scanner = Scanner(source: source)
         let tokens = scanner.scanTokens()
-        for token in tokens {
-            print(token)
+
+        let parser = Parser(tokens: tokens)
+        guard let expression = try? parser.parse() else {
+            // más adelante tendremos que sincronizar para seguir parseando
+            return
         }
+        if (hadError) {
+            return
+        }
+        print(AstPrinter().print(expr: expression))
     }
 
     static func error(line: Int, message: String) {
@@ -57,8 +64,17 @@ struct Lox {
         print("[line \(line)] Error\(position): \(message)")
         hadError = true
     }
+
+    static func error(token: Token, message: String) {
+        if (token.type == .eof) {
+            report(line: token.line, position: " at end", message: message)
+        } else {
+            report(line: token.line, position: " at '\(token.lexeme)'", message: message)
+        }
+    }
 }
 
+/*
 @main
 struct Prueba {
     static func main() {
@@ -72,3 +88,4 @@ struct Prueba {
         print(AstPrinter().print(expr: expression))
     }
 }
+*/
